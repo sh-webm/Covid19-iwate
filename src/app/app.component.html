@@ -16,7 +16,7 @@
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-item *ngFor="let label of labels" [href]="url" lines="none">
+          <ion-item *ngFor="let label of labels" href="{{label.url}}" lines="none">
             <ion-icon slot="start" [ios]="label.logo" [md]="label.logo"></ion-icon>
             <ion-label>{{ label.title }}</ion-label>
           </ion-item>
