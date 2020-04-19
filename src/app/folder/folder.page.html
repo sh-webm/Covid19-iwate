@@ -1,0 +1,456 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ folder }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div *ngIf="folder === 'ホーム'">
+    <ion-card >
+      <ion-card-header>
+        <ion-card-title>最新のお知らせ</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content style="text-align: center;">
+        <ion-list style="border-radius: 8px;">
+          <ion-item *ngFor="let notifys of notify"  [href]="notifys.href">
+            <ion-label>
+              {{notifys.title}}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-spinner *ngIf="!notify"></ion-spinner>
+
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>自身や家族の症状に不安や心配がある場合、電話相談をすることもできます。</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-button fill="outline" href="https://www.pref.iwate.jp/kurashikankyou/iryou/kenkou/jouhou/1028020.html" slot="end">Webサイトを開く</ion-button>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>最終更新: {{update}}</ion-card-subtitle>
+              <ion-card-title>岩手県の感染状況</ion-card-title>
+            </ion-card-header>
+            
+            <ion-card-content>
+              <div *ngIf="iwate">
+                <ion-list>
+                  <ion-item style="font-size: 25px; color: #4285F4;">合計の陽性患者数: {{iwate.cases}}</ion-item>
+                  <ion-item style="color: #eb7d34;">現在の陽性患者数: {{iwate.cases}}</ion-item>
+                  <ion-item style="color: #4EA143;">退院者数: {{iwate.nexits}}</ion-item>
+                  <ion-item style="color: #606060;">死亡者数: {{iwate.deaths}}</ion-item>
+                </ion-list>
+              </div>
+              <div *ngIf="!iwate">
+                <ion-spinner></ion-spinner>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>最終更新: {{update}}</ion-card-subtitle>
+              <ion-card-title>全国の感染状況</ion-card-title>
+            </ion-card-header>
+            
+            <ion-card-content>
+              <div *ngIf="total">
+                <ion-list>
+                  <ion-item style="font-size: 25px; color: #4285F4;">合計の陽性患者数: {{total.positive}}</ion-item>
+                  <ion-item style="color: #4285F4">PCR検査済み: {{total.pcr}}</ion-item>
+                  <ion-item style="color: #eb7d34;">症状あり: {{total.symptom}}</ion-item>
+                  <ion-item style="color: #4285F1;">症状なし: {{total.symptomless}}</ion-item>
+                  <ion-item style="color: #4EA143;">退院者数: {{total.discharge}}</ion-item>
+                  <ion-item style="color: #4fd1a2">軽症患者数: {{total.mild}}</ion-item>
+                  <ion-item style="color: #cf5f30;">重症患者数: {{total.severe}}</ion-item>
+                  <ion-item style="color: #606060;">死亡者数: {{total.death}}</ion-item>
+                </ion-list>
+              </div>
+              <div *ngIf="!total">
+                <ion-spinner></ion-spinner>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="folder === '基本的な感染対策'">
+    <ion-card style="background:#62C759; color:#fff;">
+      <ion-card-header>
+        <ion-card-title><h1 class="bg1">1 | 3つの密を避ける</h1></ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="text-align: center;">
+        <div> <h1 class="bw"><div class="bg">密</div>閉</h1></div>
+        <div><h1 class="bw"><div class="bg">密</div>集</h1></div>
+        <div><h1 class="bw"><div class="bg">密</div>接</h1></div>
+          <p>を避け、できるだけ自宅にいるようにしましょう。</p>
+          <ion-button style="margin-top: 10px;" fill="outline" color="light" href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html#kokumin">詳細はこちら</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card style="background: #4285F4; color: #fff;">
+      <ion-card-header>
+        <ion-card-title><h1 class="bg1">2 | 8つのポイント</h1></ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="text-align: center;">
+        <ion-list style="border-radius: 8px;">
+          <ion-item>
+            <ion-icon name="bed"></ion-icon>
+            <ion-label>　部屋を分けましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="person"></ion-icon>
+            <ion-label>　マスクをつけましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="water"></ion-icon>
+            <ion-label>　こまめに手を洗いましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="sunny"></ion-icon>
+            <ion-label>　換気をしましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="leaf"></ion-icon>
+            <ion-label>　手で触れる部分を消毒しましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="shirt"></ion-icon>
+            <ion-label>　汚れたリネン、衣服を洗濯しましょう</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="trash"></ion-icon>
+            <ion-label>　ゴミは密閉して捨てましょう</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-button style="margin-top: 10px;" fill="outline" color="light" href="https://www.mhlw.go.jp/content/10900000/000601721.pdf">詳細はこちら</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card style="background:#62C759; color:#fff;">
+      <ion-card-header>
+        <ion-card-title><h1 class="bg1">3 | 咳エチケットと手の清潔の徹底</h1></ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="text-align: center;">
+        <p>新型コロナウイルス感染症の感染経路は飛沫感染が主で、咳やくしゃみによりウイルスが伝播されます。
+          したがって、インフルエンザに対する予防と同様に、咳エチケット、手洗いなどの感染対策が有効です。
+          感染対策としてもっとも重要なことは手の清潔です。
+          マスクを着用していてもウイルスで汚染した手指で目、鼻、口などに触るとこれらの粘膜から感染する可能性があります。
+          不用意に口や鼻、目を触らないように注意しましょう。
+        </p>
+          <ion-button style="margin-top: 10px;" fill="outline" color="light" href="http://www.kansensho.or.jp/uploads/files/topics/2019ncov/2019ncov_ippan_200203.pdf">詳細はこちら</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="folder === 'お問い合わせ'">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>新型コロナウイルスに関するお問い合わせ</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div>
+          <h2 style="margin-top: 10px; color: #4285F4;margin-bottom: 10px;">岩手県　帰国者・接触者相談センター</h2>
+          <p>次の症状がある方は「帰国者・接触者相談センター」にご相談ください。</p>
+          <ion-list style="border-radius: 15px;border: solid 3px #4285F4;">
+            <ion-item style="background: transparent;"><ion-label>風邪の症状や37.5℃以上の発熱が4日以上続いている（解熱剤を飲み続けなければならい時を含みます）</ion-label></ion-item>
+            <ion-item style="background: transparent;"><ion-label>強いだるさ（倦怠感）や息苦しさ（呼吸困難）がある</ion-label></ion-item>
+            <ion-item style="background: transparent;"><ion-label>高齢者や基礎疾患等のある方は、上記の状態が2日以上続く場合</ion-label></ion-item>
+          </ion-list>
+          <table style="width: 100%; margin-top: 10px;">
+            <tr>
+              <th>相談センター設置公所</th>
+              <th>電話</th>
+              <th>所管地域</th>
+            </tr>
+            <tr>
+              <td>盛岡市保健所</td>
+              <td>019-603-8308</td>
+              <td>盛岡市</td>
+            </tr>
+            <tr>
+              <td>県央保健所</td>
+              <td>019-629-6562</td>
+              <td>八幡平市、滝沢市、雫石町、葛巻町、岩手町、紫波町、矢巾町</td>
+            </tr>
+            <tr>
+              <td>中部保健所</td>
+              <td>0198-22-4952</td>
+              <td>花巻市、遠野市、北上市、西和賀町</td>
+            </tr>
+            <tr>
+              <td>奥州保健所</td>
+              <td>
+                0197-22-2831
+              </td>
+              <td>奥州市、金ケ崎町</td>
+            </tr>
+            <tr>
+              <td>一関保健所</td>
+              <td>
+                0191-26-1415
+              </td>
+              <td>一関市、平泉町</td>
+            </tr>
+            <tr>
+              <td>大船渡保健所</td>
+              <td>
+                0192-27-9922
+              </td>
+              <td>大船渡市、陸前高田市、住田町</td>
+            </tr>
+            <tr>
+              <td>釜石保健所</td>
+              <td>
+                0193-25-2710
+              </td>
+              <td>釜石市、大槌町</td>
+            </tr>
+            <tr>
+              <td>宮古保健所</td>
+              <td>
+                0193-64-2218
+              </td>
+              <td>宮古市、山田町、岩泉町、田野畑村</td>
+            </tr>
+            <tr>
+              <td>久慈保健所</td>
+              <td>
+                0194-53-4987
+              </td>
+              <td>久慈市、普代村、洋野町、野田村</td>
+            </tr>
+            <tr>
+              <td>二戸保健所</td>
+              <td>
+                0195-23-9206
+              </td>
+              <td>二戸市、軽米町、九戸村、一戸町</td>
+            </tr>
+            <tr>
+              <td>岩手県庁医療政策室</td>
+              <td>
+                019-651-3175
+              </td>
+              <td>全県域　24時間（土日・祝日も実施）</td>
+            </tr>
+          </table>
+          
+          <h2 style="margin-top: 10px; color: #4285F4;margin-bottom: 10px;">新型コロナウイルス感染症相談窓口</h2>
+          <p>新型コロナウイルス感染症に関する全般的な相談は下記にお問い合わせください。</p>
+          <ion-list>
+            <ion-item>保健所:9時～17時（平日）</ion-item>
+            <ion-item>県庁: 9時～21時（土日・祝日も実施)</ion-item>
+          </ion-list>
+          <table style="width: 100%; margin-top: 10px;">
+            <tr>
+              <th>担当</th>
+              <th>電話</th>
+              <th>所管地域</th>
+            </tr>
+            <tr>
+              <td>盛岡市保健所 保健予防課</td>
+              <td>019-603-8308</td>
+              <td>盛岡市</td>
+            </tr>
+            <tr>
+              <td>岩手県 県央保健所 保健課</td>
+              <td>019-629-6562</td>
+              <td>八幡平市、滝沢市、雫石町、葛巻町、岩手町、紫波町、矢巾町</td>
+            </tr>
+            <tr>
+              <td>岩手県 中部保健所 保健課</td>
+              <td>0198-22-4952</td>
+              <td>花巻市、遠野市、北上市、西和賀町</td>
+            </tr>
+            <tr>
+              <td>岩手県 奥州保健所 保健課</td>
+              <td>0197-22-2831</td>
+              <td>奥州市、金ケ崎町</td>
+            </tr>
+            <tr>
+              <td>岩手県 一関保健所 保健課</td>
+              <td>0191-26-1415</td>
+              <td>一関市、平泉町</td>
+            </tr>
+            <tr>
+              <td>岩手県 大船渡保健所 保健課</td>
+              <td>0192-27-9922</td>
+              <td>大船渡市、陸前高田市、住田町</td>
+            </tr>
+            <tr>
+              <td>岩手県 釜石保健所 保健課</td>
+              <td>0193-25-2710</td>
+              <td>釜石市、大槌町</td>
+            </tr>
+            <tr>
+              <td>岩手県 宮古保健所 保健課</td>
+              <td>0193-64-2218</td>
+              <td>宮古市、山田町、岩泉町、田野畑村</td>
+            </tr>
+            <tr>
+              <td>岩手県 久慈保健所 保健課</td>
+              <td>0194-53-4987</td>
+              <td>久慈市、普代村、洋野町、野田村</td>
+            </tr>
+            <tr>
+              <td>岩手県 二戸保健所 保健課</td>
+              <td>0195-23-9206</td>
+              <td>二戸市、軽米町、九戸村、一戸町</td>
+            </tr>
+            <tr>
+              <td>岩手県庁 医療政策室 感染症担当</td>
+              <td>電話<br>
+                019-629-5472<br>
+                ファクス<br>
+                019-626-0837</td>
+                <td>全県域 午前9時～午後9時（土日・祝日も実施）</td>
+              </tr>
+            </table>
+            <ion-button href="https://www.pref.iwate.jp/kurashikankyou/iryou/kenkou/jouhou/1028020.html"><ion-icon name="open-outline"></ion-icon></ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>このwebサイトに関するお問い合わせ</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfM3he4ERfMkaDhnA-WnQglppsbXQZK3w7HldD4RMyu2yjRng/viewform?embedded=true" style="width: 100%; height: 500px;" frameborder="0" marginheight="0" marginwidth="0"><ion-spinner></ion-spinner></iframe>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngIf="folder === '当webサイトについて'">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>概要</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          当webサイトは新型コロナウイルス感染症の拡大防止を目的とし、個人が公開したものです。
+          新型コロナウイルス感染症に関する情報をわかりやすく集約し、適切な行動の手助けとなることを目的としています。
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>免責事項</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          内容には細心の注意を払っていますが、利用者が当サイトの情報を用いて行う一切の行為について責任を負うものではありません。
+          また、利用者が当サイトを利用したことにより発生した利用者の損害及び利用者が第三者に与えた損害に対して、責任を負うものではありません。
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>参考・使用しているフレームワークやwebサイトや出典</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-list>
+            <ion-item href="https://stopcovid19.metro.tokyo.lg.jp/"><ion-label>東京都新型コロナウイルス対策サイト</ion-label></ion-item>
+            <ion-item href="https://www.pref.iwate.jp/kurashikankyou/iryou/kenkou/jouhou/1028020.html"><ion-label>新型コロナウイルス感染症に対する取り組み情報　岩手県</ion-label></ion-item>
+            <ion-item href="https://github.com/swsoyee/2019-ncov-japan/tree/master"><ion-label>新型コロナウイルス感染速報</ion-label></ion-item>
+            <ion-item href="https://github.com/ryo-ma/covid19-japan-web-api"><ion-label>covid19-japan-web-api</ion-label></ion-item>
+            <ion-item href="https://app.sabae.cc/api/covid19japan.json"><ion-label>https://app.sabae.cc/api/covid19japan.json</ion-label></ion-item>
+            <ion-item href="http://2019ncov.chinacdc.cn/2019-nCoV/"><ion-label>新型冠状病毒肺炎疫情分布</ion-label></ion-item>
+            <ion-item href="https://github.com/mathdroid/covid19"><ion-label> mathdroid/covid-19-api</ion-label></ion-item>
+            <ion-item href="http://www.kansensho.or.jp/modules/topics/index.php?content_id=31"><ion-label>日本感染症学会　新型コロナウイルス感染症</ion-label></ion-item>
+            <ion-item href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000164708_00001.html"><ion-label>新型コロナウイルス感染症について　厚生労働省</ion-label></ion-item>
+            <ion-item href="https://ionic.io/"><ion-label>ionic Framework</ion-label></ion-item>
+            <ion-item href="https://angular.io/"><ion-label>Angular</ion-label></ion-item>
+            <ion-item href="https://ionicons.com/"><ion-label>ionicons</ion-label></ion-item>
+            <ion-item href="https://firebase.io/"><ion-label>Firebase</ion-label></ion-item>
+            <ion-item href="https://analytics.google.com/"><ion-label>Google Analyics</ion-label></ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngIf="folder === '最新の動向'">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>最終更新: {{update}}</ion-card-subtitle>
+          <ion-card-title>岩手県の感染状況</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="iwate">
+            <ion-list>
+              <ion-item style="font-size: 25px; color: #4285F4;">合計の陽性患者数: {{iwate.cases}}</ion-item>
+              <ion-item style="color: #eb7d34;">現在の陽性患者数: {{iwate.cases}}</ion-item>
+              <ion-item style="color: #4EA143;">退院者数: {{iwate.nexits}}</ion-item>
+              <ion-item style="color: #606060;">死亡者数: {{iwate.deaths}}</ion-item>
+            </ion-list>
+          </div>
+          <div *ngIf="!iwate">
+            <ion-spinner></ion-spinner>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngIf="global">
+        <ion-card-header>
+          <ion-card-subtitle>最終更新: {{global.lastUpdate}}</ion-card-subtitle>
+          <ion-card-title>全世界の感染状況</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div>
+            <ion-list>
+              <ion-item style="font-size: 25px; color: #4285F4;">合計の陽性患者数: {{global.confirmed.value}}+</ion-item>
+              <ion-item style="color: #4EA143;">回復した患者数: {{global.recovered.value}}+</ion-item>
+              <ion-item style="color: #606060;">死亡者数:{{global.deaths.value}}+</ion-item>
+            </ion-list>
+            <img style="border-radius: 10px;" [src]="global.image">
+          </div>
+          <div *ngIf="!global">
+            <ion-spinner></ion-spinner>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>最終更新: {{update}}</ion-card-subtitle>
+          <ion-card-title>全国の感染状況</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngIf="total">
+            <ion-list>
+              <ion-item style="font-size: 25px; color: #4285F4;">合計の陽性患者数: {{total.positive}}</ion-item>
+              <ion-item style="color: #4285F4">PCR検査済み: {{total.pcr}}</ion-item>
+              <ion-item style="color: #eb7d34;">症状あり: {{total.symptom}}</ion-item>
+              <ion-item style="color: #4285F1;">症状なし: {{total.symptomless}}</ion-item>
+              <ion-item style="color: #4EA143;">退院者数: {{total.discharge}}</ion-item>
+              <ion-item style="color: #4fd1a2">軽症患者数: {{total.mild}}</ion-item>
+              <ion-item style="color: #cf5f30;">重症患者数: {{total.severe}}</ion-item>
+              <ion-item style="color: #606060;">死亡者数: {{total.death}}</ion-item>
+            </ion-list>
+          </div>
+          <div *ngIf="!total">
+            <ion-spinner></ion-spinner>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+  </ion-content>
+  
