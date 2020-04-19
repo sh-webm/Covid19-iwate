@@ -41,7 +41,8 @@ export class AppComponent implements OnInit {
   public labels = [
     {
       'title': 'Github',
-      'logo': 'logo-github'
+      'logo': 'logo-github',
+      'url':'https://github.com/sh-webm/Covid19-iwate'
     }
   ];
 
