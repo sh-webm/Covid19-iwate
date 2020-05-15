@@ -36,13 +36,12 @@ export class AppComponent implements OnInit {
       title: 'お問い合わせ',
       url: '/folder/お問い合わせ',
       icon: 'mail-outline'
-    },
+    }
   ];
   public labels = [
     {
       'title': 'Github',
-      'logo': 'logo-github',
-      'url':'https://github.com/sh-webm/Covid19-iwate'
+      'logo': 'logo-github'
     }
   ];
 

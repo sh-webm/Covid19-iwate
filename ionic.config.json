@@ -1,8 +1,7 @@
 {
   "name": "COVID-19-iwate",
   "integrations": {
-    "capacitor": {},
-    "cordova": {}
+    "capacitor": {}
   },
   "type": "angular"
 }
